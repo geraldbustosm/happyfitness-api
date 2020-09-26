@@ -17,3 +17,13 @@ class Motivo(Base):
     nombre = Column(String, index=True)
     correlativo = Column(Integer, index=True)
     sede = relationship("Sede", back_populates="motivos")
+    votaciones = relationship("Votacion", back_populates="motivo")
+
+
+class Votacion(Base):
+    __tablename__ = "votaciones"
+    id = Column(Integer, primary_key=True, index=True)
+    motivo_id = Column(Integer, ForeignKey("motivos.id"))
+    calificacion = Column(Integer, index=True, nullable=False)
+    razon = Column(String, index=True)
+    motivo = relationship("Motivo", back_populates="votaciones")
